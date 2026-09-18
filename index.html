@@ -31,7 +31,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 3D Canvas */
+        /* 3D Canvas Container */
         #canvas-container {
             position: fixed;
             top: 0;
@@ -42,7 +42,7 @@
             pointer-events: none;
         }
 
-        /* Smooth Custom Cursor */
+        /* Custom Cursor */
         .cursor-dot {
             width: 8px;
             height: 8px;
@@ -196,15 +196,33 @@
             font-size: 13px;
             color: #888888;
             line-height: 1.7;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-weight: 300;
+        }
+
+        .steps-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #333333;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 11px;
+            color: #aaaaaa;
+            line-height: 1.6;
+        }
+
+        .steps-title {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .tech-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
         }
 
         .tech-tag {
@@ -214,6 +232,12 @@
             padding: 5px 12px;
             border: 1px solid #222222;
             color: #aaaaaa;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .btn-download {
@@ -234,6 +258,17 @@
 
         .btn-download:hover {
             background: #cccccc;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid #444444;
+        }
+
+        .btn-secondary:hover {
+            background: #ffffff;
+            color: #000000;
         }
 
         .btn-disabled {
@@ -297,31 +332,63 @@
     </section>
 
     <div class="main-container" id="work">
-        <div class="section-label">SELECTED WORKS // (02)</div>
+        <div class="section-label">SELECTED WORKS // (04)</div>
 
         <div class="project-grid">
             
-            <!-- Card 1: Air Mouse Setup -->
+            <!-- Project 1: SIYA AI Agent -->
             <div class="project-card">
                 <div class="card-number">PROJECT // 01</div>
+                <h2 class="card-title">SIYA AI AGENT</h2>
+                <p class="card-desc">Smart, witty, and sassy web-based AI assistant capable of handling web tasks, voice commands, and interactive features directly in your browser.</p>
+                
+                <div class="steps-box">
+                    <div class="steps-title">Activation Steps:</div>
+                    1. Get your free Gemini API Key<br>
+                    2. Click "LAUNCH IN BROWSER" below<br>
+                    3. Enter 4-digit PIN & paste API Key<br>
+                    4. Allow mic access & say "Boss"
+                </div>
+
+                <div class="tech-tags">
+                    <span class="tech-tag">Web AI</span>
+                    <span class="tech-tag">Voice Assistant</span>
+                    <span class="tech-tag">Vercel</span>
+                    <span class="tech-tag">Gemini API</span>
+                </div>
+
+                <div class="button-group">
+                    <a href="https://siya-smoky.vercel.app/" class="btn-download" target="_blank">
+                        <span>LAUNCH IN BROWSER</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <a href="https://aistudio.google.com/app/apikey" class="btn-download btn-secondary" target="_blank">
+                        <span>GET GEMINI API KEY</span>
+                        <i class="fa-solid fa-key"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 2: Air Mouse Setup -->
+            <div class="project-card">
+                <div class="card-number">PROJECT // 02</div>
                 <h2 class="card-title">AIR MOUSE CONTROL</h2>
-                <p class="card-desc">Computer vision system enabling touchless PC control. Features real-time webcam tracking for cursor movement, clicking, scrolling, and volume management.</p>
+                <p class="card-desc">Computer vision system enabling touchless PC control. Features real-time webcam tracking for cursor movement, clicking, and volume management.</p>
                 <div class="tech-tags">
                     <span class="tech-tag">Python</span>
                     <span class="tech-tag">OpenCV</span>
                     <span class="tech-tag">MediaPipe</span>
                     <span class="tech-tag">PyQt6</span>
                 </div>
-                <!-- Yahan Apni Jarvis Air Mouse File Ka Google Drive Link Paste Karein -->
                 <a href="https://www.mediafire.com/file/5xf5fwhsbj3enrm/Jarvis_Air_Mouse_Setup.exe/file" class="btn-download" target="_blank">
                     <span>DOWNLOAD SETUP (.EXE)</span>
                     <i class="fa-solid fa-arrow-down"></i>
                 </a>
             </div>
 
-            <!-- Card 2: Pro Racing Setup -->
+            <!-- Project 3: Virtual Steering Setup -->
             <div class="project-card">
-                <div class="card-number">PROJECT // 02</div>
+                <div class="card-number">PROJECT // 03</div>
                 <h2 class="card-title">VIRTUAL STEERING</h2>
                 <p class="card-desc">Hand-gesture controller mapped for racing games. Detects real-time hand rotation angles to emulate high-precision steering inputs.</p>
                 <div class="tech-tags">
@@ -330,16 +397,15 @@
                     <span class="tech-tag">vJoy</span>
                     <span class="tech-tag">DirectInput</span>
                 </div>
-                <!-- Yahan Apni AI Pro Racing File Ka Google Drive Link Paste Karein -->
                 <a href="https://www.mediafire.com/file/ur9pagisqd5ta5e/AI_Pro_Racing_Setup.exe/file" class="btn-download" target="_blank">
                     <span>DOWNLOAD SETUP (.EXE)</span>
                     <i class="fa-solid fa-arrow-down"></i>
                 </a>
             </div>
 
-            <!-- Card 3: Future Slot -->
+            <!-- Project 4: Upcoming System Slot -->
             <div class="project-card" style="opacity: 0.5;">
-                <div class="card-number">PROJECT // 03</div>
+                <div class="card-number">PROJECT // 04</div>
                 <h2 class="card-title">UPCOMING SYSTEM</h2>
                 <p class="card-desc">Next-generation neural interface and automated vision framework. Currently undergoing optimization and testing.</p>
                 <div class="tech-tags">
@@ -382,7 +448,7 @@
         }
         updateCursor();
 
-        // Optimized 3D Scene
+        // 3D Scene Setup
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
 
