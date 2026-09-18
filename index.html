@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRIYANSHU ® — DIGITAL PROJECTS</title>
+    <title>PRIYANSHU KUMAR — PORTFOLIO & PROJECTS</title>
     
-    <!-- Three.js for 3D Moon -->
+    <!-- Three.js for 3D Moon / Background -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,11 +24,12 @@
         }
 
         body {
-            background-color: #000000;
+            background-color: #030303;
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
         }
 
         /* 3D Canvas Container */
@@ -40,31 +41,35 @@
             height: 100vh;
             z-index: 1;
             pointer-events: none;
+            opacity: 0.6;
         }
 
-        /* Custom Cursor */
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #ffffff;
+        /* Glassy Bubble Cursor Effect */
+        .cursor-bubble {
             position: fixed;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            transition: width 0.2s, height: 0.2s, background 0.2s;
         }
 
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #ffffff;
             position: fixed;
             border-radius: 50%;
             pointer-events: none;
-            z-index: 9998;
+            z-index: 10000;
             transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
         }
 
         /* Header */
@@ -73,45 +78,39 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 30px 40px;
+            padding: 25px 40px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             z-index: 10;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+            background: rgba(3, 3, 3, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .brand-logo {
-            font-weight: 600;
-        }
-
-        .header-center {
-            text-align: center;
-            color: #888888;
-            line-height: 1.6;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 2px;
         }
 
         .header-nav {
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
 
         .header-nav a {
-            color: #ffffff;
+            color: #aaaaaa;
             text-decoration: none;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
             transition: color 0.3s;
+            text-transform: uppercase;
         }
 
         .header-nav a:hover {
-            color: #888888;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
+            color: #ffffff;
         }
 
         /* Hero Section */
@@ -120,72 +119,141 @@
             height: 100vh;
             width: 100vw;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 2;
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #888888;
+            margin-bottom: 15px;
         }
 
         .giant-title {
             font-family: 'Anton', sans-serif;
-            font-size: clamp(5rem, 18vw, 22rem);
-            line-height: 0.8;
+            font-size: clamp(4rem, 15vw, 18rem);
+            line-height: 0.85;
             text-transform: uppercase;
             letter-spacing: -2px;
-            text-align: center;
             color: #ffffff;
-            white-space: nowrap;
             user-select: none;
-            mix-blend-mode: difference;
+            background: linear-gradient(180deg, #ffffff 30%, #555555 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Projects Section */
+        /* Main Container & Sections */
         .main-container {
             position: relative;
             z-index: 3;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 100px 40px 150px;
+            padding: 80px 40px;
         }
 
         .section-label {
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: #666666;
-            margin-bottom: 60px;
-            border-bottom: 1px solid #222222;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 15px;
         }
 
+        /* About Section Styles */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            align-items: center;
+            background: rgba(15, 15, 15, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 60px;
+            backdrop-filter: blur(15px);
+            margin-bottom: 120px;
+        }
+
+        .about-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .about-text {
+            font-size: 14px;
+            color: #aaaaaa;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 20px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 15px;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Projects Grid */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 120px;
         }
 
         .project-card {
-            background: rgba(10, 10, 10, 0.85);
-            border: 1px solid #222222;
-            padding: 40px;
-            backdrop-filter: blur(8px);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            background: rgba(12, 12, 12, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 35px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .project-card:hover {
-            border-color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.4);
             transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
         .card-number {
             font-size: 11px;
             color: #555555;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             letter-spacing: 1px;
         }
 
         .card-title {
             font-family: 'Anton', sans-serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 15px;
@@ -201,10 +269,10 @@
         }
 
         .steps-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid #333333;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             padding: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-size: 11px;
             color: #aaaaaa;
             line-height: 1.6;
@@ -213,7 +281,7 @@
         .steps-title {
             color: #ffffff;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -230,8 +298,9 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             padding: 5px 12px;
-            border: 1px solid #222222;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: #aaaaaa;
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .button-group {
@@ -240,12 +309,12 @@
             gap: 10px;
         }
 
-        .btn-download {
+        .btn-action {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            padding: 16px 20px;
+            padding: 15px 20px;
             background: #ffffff;
             color: #000000;
             text-decoration: none;
@@ -253,17 +322,17 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            transition: background 0.3s ease;
+            transition: background 0.3s;
         }
 
-        .btn-download:hover {
+        .btn-action:hover {
             background: #cccccc;
         }
 
         .btn-secondary {
             background: transparent;
             color: #ffffff;
-            border: 1px solid #444444;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .btn-secondary:hover {
@@ -274,31 +343,76 @@
         .btn-disabled {
             background: #111111;
             color: #444444;
-            border: 1px solid #222222;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             cursor: not-allowed;
         }
 
+        /* Contact Section Styles */
+        .contact-container {
+            background: rgba(12, 12, 12, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 60px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            margin-bottom: 80px;
+        }
+
+        .contact-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .contact-desc {
+            font-size: 13px;
+            color: #888;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .email-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 15px 30px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .email-pill:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+        }
+
         footer {
-            border-top: 1px solid #111111;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             padding: 40px;
             text-align: center;
             font-size: 10px;
-            color: #444444;
+            color: #555555;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
             header {
                 padding: 20px;
-                flex-direction: column;
+            }
+            .header-nav {
                 gap: 15px;
-            }
-            .header-center, .social-links {
-                display: none;
-            }
-            .giant-title {
-                font-size: 4rem;
             }
         }
     </style>
@@ -308,116 +422,158 @@
     <div id="canvas-container"></div>
 
     <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+    <div class="cursor-bubble"></div>
 
     <header>
-        <div class="brand-logo">PRIYANSHU ®</div>
-        <div class="header-center">
-            BUILDING ADVANCED COMPUTATIONAL SYSTEMS<br>GESTURE CONTROL & COMPUTER VISION
-        </div>
+        <div class="brand-logo">PRIYANSHU KUMAR ®</div>
         <div class="header-nav">
-            <a href="#work">WORK</a>
-            <a href="#about">ABOUT</a>
-            <a href="#contact">CONTACT</a>
-        </div>
-        <div class="social-links">
-            <a href="#">IG</a>
-            <a href="#">X</a>
-            <a href="#">GH</a>
+            <a href="#about">About</a>
+            <a href="#work">Projects</a>
+            <a href="#contact">Contact</a>
         </div>
     </header>
 
     <section class="hero">
-        <h1 class="giant-title">PRIYANSHU</h1>
+        <span class="hero-subtitle">Digital Creator & Developer</span>
+        <h1 class="giant-title">Priyanshu</h1>
     </section>
 
-    <div class="main-container" id="work">
-        <div class="section-label">SELECTED WORKS // (04)</div>
-
-        <div class="project-grid">
-            
-            <!-- Project 1: SIYA AI Agent -->
-            <div class="project-card">
-                <div class="card-number">PROJECT // 01</div>
-                <h2 class="card-title">SIYA AI AGENT</h2>
-                <p class="card-desc">Smart, witty, and sassy web-based AI assistant capable of handling web tasks, voice commands, and interactive features directly in your browser.</p>
-                
-                <div class="steps-box">
-                    <div class="steps-title">Activation Steps:</div>
-                    1. Get your free Gemini API Key<br>
-                    2. Click "LAUNCH IN BROWSER" below<br>
-                    3. Enter 4-digit PIN & paste API Key<br>
-                    4. Allow mic access & say "Boss"
+    <div class="main-container">
+        
+        <!-- About Section -->
+        <div id="about">
+            <div class="section-label">01 // About Me</div>
+            <div class="about-grid">
+                <div>
+                    <h2 class="about-title">Priyanshu Kumar</h2>
+                    <p class="about-text">
+                        Main ek passionate creator aur tech enthusiast hoon jo alag-alag digital systems, web apps aur creative media par kaam karta hoon. Naye tools banana aur unhe smooth experience dena mera main goal hai.
+                    </p>
                 </div>
-
-                <div class="tech-tags">
-                    <span class="tech-tag">Web AI</span>
-                    <span class="tech-tag">Voice Assistant</span>
-                    <span class="tech-tag">Vercel</span>
-                    <span class="tech-tag">Gemini API</span>
-                </div>
-
-                <div class="button-group">
-                    <a href="https://siya-smoky.vercel.app/" class="btn-download" target="_blank">
-                        <span>LAUNCH IN BROWSER</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </a>
-                    <a href="https://aistudio.google.com/app/apikey" class="btn-download btn-secondary" target="_blank">
-                        <span>GET GEMINI API KEY</span>
-                        <i class="fa-solid fa-key"></i>
-                    </a>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Current Status</div>
+                        <div class="stat-value">Class 9th</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Development</div>
+                        <div class="stat-value">Basic Developer</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Editing</div>
+                        <div class="stat-value">Beginner Editor</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Passion</div>
+                        <div class="stat-value">Hardcore Gamer</div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Project 2: Air Mouse Setup -->
-            <div class="project-card">
-                <div class="card-number">PROJECT // 02</div>
-                <h2 class="card-title">AIR MOUSE CONTROL</h2>
-                <p class="card-desc">Computer vision system enabling touchless PC control. Features real-time webcam tracking for cursor movement, clicking, and volume management.</p>
-                <div class="tech-tags">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">OpenCV</span>
-                    <span class="tech-tag">MediaPipe</span>
-                    <span class="tech-tag">PyQt6</span>
-                </div>
-                <a href="https://www.mediafire.com/file/5xf5fwhsbj3enrm/Jarvis_Air_Mouse_Setup.exe/file" class="btn-download" target="_blank">
-                    <span>DOWNLOAD SETUP (.EXE)</span>
-                    <i class="fa-solid fa-arrow-down"></i>
-                </a>
-            </div>
-
-            <!-- Project 3: Virtual Steering Setup -->
-            <div class="project-card">
-                <div class="card-number">PROJECT // 03</div>
-                <h2 class="card-title">VIRTUAL STEERING</h2>
-                <p class="card-desc">Hand-gesture controller mapped for racing games. Detects real-time hand rotation angles to emulate high-precision steering inputs.</p>
-                <div class="tech-tags">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">OpenCV</span>
-                    <span class="tech-tag">vJoy</span>
-                    <span class="tech-tag">DirectInput</span>
-                </div>
-                <a href="https://www.mediafire.com/file/ur9pagisqd5ta5e/AI_Pro_Racing_Setup.exe/file" class="btn-download" target="_blank">
-                    <span>DOWNLOAD SETUP (.EXE)</span>
-                    <i class="fa-solid fa-arrow-down"></i>
-                </a>
-            </div>
-
-            <!-- Project 4: Upcoming System Slot -->
-            <div class="project-card" style="opacity: 0.5;">
-                <div class="card-number">PROJECT // 04</div>
-                <h2 class="card-title">UPCOMING SYSTEM</h2>
-                <p class="card-desc">Next-generation neural interface and automated vision framework. Currently undergoing optimization and testing.</p>
-                <div class="tech-tags">
-                    <span class="tech-tag">IN DEVELOPMENT</span>
-                </div>
-                <a href="#" class="btn-download btn-disabled" onclick="return false;">
-                    <span>COMING SOON</span>
-                    <i class="fa-solid fa-lock"></i>
-                </a>
-            </div>
-
         </div>
+
+        <!-- Projects Section -->
+        <div id="work">
+            <div class="section-label">02 // Selected Works</div>
+
+            <div class="project-grid">
+                
+                <!-- Project 1: SIYA AI Agent -->
+                <div class="project-card">
+                    <div class="card-number">PROJECT // 01</div>
+                    <h2 class="card-title">SIYA AI AGENT</h2>
+                    <p class="card-desc">Smart, witty, and sassy web-based AI assistant capable of handling web tasks, voice commands, and interactive features directly in your browser.</p>
+                    
+                    <div class="steps-box">
+                        <div class="steps-title">Activation Steps:</div>
+                        1. Get your free Gemini API Key<br>
+                        2. Click "LAUNCH IN BROWSER"<br>
+                        3. Enter 4-digit PIN & paste API Key<br>
+                        4. Allow mic access & say "Boss"
+                    </div>
+
+                    <div class="tech-tags">
+                        <span class="tech-tag">Web AI</span>
+                        <span class="tech-tag">Voice Assistant</span>
+                        <span class="tech-tag">Vercel</span>
+                        <span class="tech-tag">Gemini API</span>
+                    </div>
+
+                    <div class="button-group">
+                        <a href="https://siya-smoky.vercel.app/" class="btn-action" target="_blank">
+                            <span>LAUNCH IN BROWSER</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                        <a href="https://aistudio.google.com/app/apikey" class="btn-action btn-secondary" target="_blank">
+                            <span>GET GEMINI API KEY</span>
+                            <i class="fa-solid fa-key"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2: Air Mouse Setup -->
+                <div class="project-card">
+                    <div class="card-number">PROJECT // 02</div>
+                    <h2 class="card-title">AIR MOUSE CONTROL</h2>
+                    <p class="card-desc">Computer vision system enabling touchless PC control. Features real-time webcam tracking for cursor movement, clicking, and volume management.</p>
+                    <div class="tech-tags" style="margin-bottom: 25px;">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">MediaPipe</span>
+                        <span class="tech-tag">PyQt6</span>
+                    </div>
+                    <a href="YOUR_GOOGLE_DRIVE_LINK_HERE" class="btn-action" target="_blank">
+                        <span>DOWNLOAD SETUP (.EXE)</span>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                </div>
+
+                <!-- Project 3: Virtual Steering Setup -->
+                <div class="project-card">
+                    <div class="card-number">PROJECT // 03</div>
+                    <h2 class="card-title">VIRTUAL STEERING</h2>
+                    <p class="card-desc">Hand-gesture controller mapped for racing games. Detects real-time hand rotation angles to emulate high-precision steering inputs.</p>
+                    <div class="tech-tags" style="margin-bottom: 25px;">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">vJoy</span>
+                        <span class="tech-tag">DirectInput</span>
+                    </div>
+                    <a href="YOUR_GOOGLE_DRIVE_LINK_HERE" class="btn-action" target="_blank">
+                        <span>DOWNLOAD SETUP (.EXE)</span>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                </div>
+
+                <!-- Project 4: Upcoming System Slot -->
+                <div class="project-card" style="opacity: 0.6;">
+                    <div class="card-number">PROJECT // 04</div>
+                    <h2 class="card-title">UPCOMING SYSTEM</h2>
+                    <p class="card-desc">Next-generation neural interface and automated vision framework. Currently undergoing optimization and testing.</p>
+                    <div class="tech-tags" style="margin-bottom: 25px;">
+                        <span class="tech-tag">IN DEVELOPMENT</span>
+                    </div>
+                    <a href="#" class="btn-action btn-disabled" onclick="return false;">
+                        <span>COMING SOON</span>
+                        <i class="fa-solid fa-lock"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact">
+            <div class="section-label">03 // Get In Touch</div>
+            <div class="contact-container">
+                <h2 class="contact-title">Let's Connect</h2>
+                <p class="contact-desc">Business inquiries, collaborations, ya koi project discuss karna ho toh seedha email par contact kar sakte ho.</p>
+                <a href="mailto:papajibolo0000@gmail.com" class="email-pill">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>papajibolo0000@gmail.com</span>
+                </a>
+            </div>
+        </div>
+
     </div>
 
     <footer>
@@ -425,30 +581,32 @@
     </footer>
 
     <script>
-        // Custom Smooth Cursor
+        // Glassy Bubble Cursor Follower
         const dot = document.querySelector('.cursor-dot');
-        const outline = document.querySelector('.cursor-outline');
+        const bubble = document.querySelector('.cursor-bubble');
 
-        let targetX = 0, targetY = 0;
-        let currentX = 0, currentY = 0;
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let bubbleX = mouseX;
+        let bubbleY = mouseY;
 
         window.addEventListener('mousemove', (e) => {
-            targetX = e.clientX;
-            targetY = e.clientY;
-            dot.style.left = `${targetX}px`;
-            dot.style.top = `${targetY}px`;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.left = `${mouseX}px`;
+            dot.style.top = `${mouseY}px`;
         });
 
-        function updateCursor() {
-            currentX += (targetX - currentX) * 0.15;
-            currentY += (targetY - currentY) * 0.15;
-            outline.style.left = `${currentX}px`;
-            outline.style.top = `${currentY}px`;
-            requestAnimationFrame(updateCursor);
+        function animateBubble() {
+            bubbleX += (mouseX - bubbleX) * 0.15;
+            bubbleY += (mouseY - bubbleY) * 0.15;
+            bubble.style.left = `${bubbleX}px`;
+            bubble.style.top = `${bubbleY}px`;
+            requestAnimationFrame(animateBubble);
         }
-        updateCursor();
+        animateBubble();
 
-        // 3D Scene Setup
+        // 3D Three.js Background Scene
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
 
@@ -460,36 +618,36 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
         container.appendChild(renderer.domElement);
 
-        const geometry = new THREE.SphereGeometry(1.2, 32, 32);
+        const geometry = new THREE.SphereGeometry(1.4, 32, 32);
         const material = new THREE.MeshStandardMaterial({
-            color: 0x888888,
-            roughness: 0.8,
-            metalness: 0.2
+            color: 0x444444,
+            roughness: 0.7,
+            metalness: 0.3,
+            wireframe: false
         });
 
-        const moon = new THREE.Mesh(geometry, material);
-        scene.add(moon);
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
         scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
         directionalLight.position.set(5, 3, 5);
         scene.add(directionalLight);
 
-        let mouseX = 0;
-        let mouseY = 0;
+        let targetRotationX = 0;
+        let targetRotationY = 0;
 
         document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX / window.innerWidth) - 0.5;
-            mouseY = (event.clientY / window.innerHeight) - 0.5;
+            targetRotationX = (event.clientY / window.innerHeight - 0.5) * 0.5;
+            targetRotationY = (event.clientX / window.innerWidth - 0.5) * 0.5;
         });
 
         function animate() {
             requestAnimationFrame(animate);
-            moon.rotation.y += 0.002;
-            moon.rotation.y += mouseX * 0.005;
-            moon.rotation.x += mouseY * 0.005;
+            sphere.rotation.y += 0.003 + (targetRotationY - sphere.rotation.y) * 0.05;
+            sphere.rotation.x += (targetRotationX - sphere.rotation.x) * 0.05;
             renderer.render(scene, camera);
         }
 
