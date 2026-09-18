@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIYANSHU ® — DIGITAL PROJECTS</title>
+    
+    <!-- Three.js for 3D Moon -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 3D Canvas */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Smooth Custom Cursor */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ffffff;
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 10;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .brand-logo {
+            font-weight: 600;
+        }
+
+        .header-center {
+            text-align: center;
+            color: #888888;
+            line-height: 1.6;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .header-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .header-nav a:hover {
+            color: #888888;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .giant-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(5rem, 18vw, 22rem);
+            line-height: 0.8;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            text-align: center;
+            color: #ffffff;
+            white-space: nowrap;
+            user-select: none;
+            mix-blend-mode: difference;
+        }
+
+        /* Projects Section */
+        .main-container {
+            position: relative;
+            z-index: 3;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 40px 150px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666666;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #222222;
+            padding-bottom: 15px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid #222222;
+            padding: 40px;
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: #ffffff;
+            transform: translateY(-8px);
+        }
+
+        .card-number {
+            font-size: 11px;
+            color: #555555;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .card-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: #888888;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 35px;
+        }
+
+        .tech-tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 12px;
+            border: 1px solid #222222;
+            color: #aaaaaa;
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 16px 20px;
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background: #cccccc;
+        }
+
+        .btn-disabled {
+            background: #111111;
+            color: #444444;
+            border: 1px solid #222222;
+            cursor: not-allowed;
+        }
+
+        footer {
+            border-top: 1px solid #111111;
+            padding: 40px;
+            text-align: center;
+            font-size: 10px;
+            color: #444444;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .header-center, .social-links {
+                display: none;
+            }
+            .giant-title {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header>
+        <div class="brand-logo">PRIYANSHU ®</div>
+        <div class="header-center">
+            BUILDING ADVANCED COMPUTATIONAL SYSTEMS<br>GESTURE CONTROL & COMPUTER VISION
+        </div>
+        <div class="header-nav">
+            <a href="#work">WORK</a>
+            <a href="#about">ABOUT</a>
+            <a href="#contact">CONTACT</a>
+        </div>
+        <div class="social-links">
+            <a href="#">IG</a>
+            <a href="#">X</a>
+            <a href="#">GH</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1 class="giant-title">PRIYANSHU</h1>
+    </section>
+
+    <div class="main-container" id="work">
+        <div class="section-label">SELECTED WORKS // (02)</div>
+
+        <div class="project-grid">
+            
+            <!-- Card 1: Air Mouse Setup -->
+            <div class="project-card">
+                <div class="card-number">PROJECT // 01</div>
+                <h2 class="card-title">AIR MOUSE CONTROL</h2>
+                <p class="card-desc">Computer vision system enabling touchless PC control. Features real-time webcam tracking for cursor movement, clicking, scrolling, and volume management.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">MediaPipe</span>
+                    <span class="tech-tag">PyQt6</span>
+                </div>
+                <!-- Yahan Apni Jarvis Air Mouse File Ka Google Drive Link Paste Karein -->
+                <a href="https://www.mediafire.com/file/5xf5fwhsbj3enrm/Jarvis_Air_Mouse_Setup.exe/file" class="btn-download" target="_blank">
+                    <span>DOWNLOAD SETUP (.EXE)</span>
+                    <i class="fa-solid fa-arrow-down"></i>
+                </a>
+            </div>
+
+            <!-- Card 2: Pro Racing Setup -->
+            <div class="project-card">
+                <div class="card-number">PROJECT // 02</div>
+                <h2 class="card-title">VIRTUAL STEERING</h2>
+                <p class="card-desc">Hand-gesture controller mapped for racing games. Detects real-time hand rotation angles to emulate high-precision steering inputs.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">vJoy</span>
+                    <span class="tech-tag">DirectInput</span>
+                </div>
+                <!-- Yahan Apni AI Pro Racing File Ka Google Drive Link Paste Karein -->
+                <a href="https://www.mediafire.com/file/ur9pagisqd5ta5e/AI_Pro_Racing_Setup.exe/file" class="btn-download" target="_blank">
+                    <span>DOWNLOAD SETUP (.EXE)</span>
+                    <i class="fa-solid fa-arrow-down"></i>
+                </a>
+            </div>
+
+            <!-- Card 3: Future Slot -->
+            <div class="project-card" style="opacity: 0.5;">
+                <div class="card-number">PROJECT // 03</div>
+                <h2 class="card-title">UPCOMING SYSTEM</h2>
+                <p class="card-desc">Next-generation neural interface and automated vision framework. Currently undergoing optimization and testing.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">IN DEVELOPMENT</span>
+                </div>
+                <a href="#" class="btn-download btn-disabled" onclick="return false;">
+                    <span>COMING SOON</span>
+                    <i class="fa-solid fa-lock"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        © 2026 PRIYANSHU KUMAR — ALL RIGHTS RESERVED
+    </footer>
+
+    <script>
+        // Custom Smooth Cursor
+        const dot = document.querySelector('.cursor-dot');
+        const outline = document.querySelector('.cursor-outline');
+
+        let targetX = 0, targetY = 0;
+        let currentX = 0, currentY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            targetX = e.clientX;
+            targetY = e.clientY;
+            dot.style.left = `${targetX}px`;
+            dot.style.top = `${targetY}px`;
+        });
+
+        function updateCursor() {
+            currentX += (targetX - currentX) * 0.15;
+            currentY += (targetY - currentY) * 0.15;
+            outline.style.left = `${currentX}px`;
+            outline.style.top = `${currentY}px`;
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // Optimized 3D Scene
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        container.appendChild(renderer.domElement);
+
+        const geometry = new THREE.SphereGeometry(1.2, 32, 32);
+        const material = new THREE.MeshStandardMaterial({
+            color: 0x888888,
+            roughness: 0.8,
+            metalness: 0.2
+        });
+
+        const moon = new THREE.Mesh(geometry, material);
+        scene.add(moon);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        directionalLight.position.set(5, 3, 5);
+        scene.add(directionalLight);
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) - 0.5;
+            mouseY = (event.clientY / window.innerHeight) - 0.5;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            moon.rotation.y += 0.002;
+            moon.rotation.y += mouseX * 0.005;
+            moon.rotation.x += mouseY * 0.005;
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
